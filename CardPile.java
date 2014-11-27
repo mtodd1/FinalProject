@@ -2,6 +2,7 @@
 
 */
 import java.util.ArrayList;
+import java.util.List;
 public class CardPile
 {
    private ArrayList<Card> cards;
@@ -101,7 +102,13 @@ public class CardPile
       cards.clear();
    
    }
-
+   
+   public ArrayList<Card> getHalf(int to, int from)
+   {
+      List<Card> list = cards.subList(to, from);
+      ArrayList<Card> half = new ArrayList<Card>(list);
+      return half;
+   }
 
 
 }
