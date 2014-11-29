@@ -10,32 +10,17 @@ public class Deck extends CardPile
    
    public Deck()
    {
-      for(int i = 0; i <= Card.DIAMONDS; i++)
+      for(int i = 1; i <= Card.DIAMONDS; i++)
       {
-         for(int j = 0; j <= Card.KING; j++)
+         for(int j = 1; j <= Card.KING; j++)
          {
             Card card = new Card(i, j);
+            System.out.println(card);
             addCard(card);
          } 
       } 
    }
    
-   public void divide()
-   {
-      int mid = (numCards()/2);
-      half1 = super.getHalf(0, mid);
-      half2 = super.getHalf(mid, numCards()-1);
-   }
-   
-   public ArrayList<Card> getHalf1()
-   {
-      return half1;
-   }
-   
-   public ArrayList<Card> getHalf2()
-   {
-      return half2;
-   }
    
    public void shuffle()
    {

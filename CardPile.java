@@ -38,9 +38,16 @@ public class CardPile
    {
       return cards.size();
    }
+   
+   
    public void addCard(Card card)
    {
       cards.add(card);  
+   }
+   
+   public void addCard(int index, Card card)
+   {
+      cards.add(index, card);
    }
    
    /**
@@ -103,12 +110,21 @@ public class CardPile
    
    }
    
-   public ArrayList<Card> getHalf(int to, int from)
+   public CardPile getHalf(int to, int from)
    {
       List<Card> list = cards.subList(to, from);
-      ArrayList<Card> half = new ArrayList<Card>(list);
+      ArrayList<Card> halfList = new ArrayList<Card>(list);
+      CardPile half = new CardPile(halfList);
       return half;
    }
 
-
+   public Card flipTop()
+   {
+      Card card = getCard(numCards()-1);
+      removeCard(getCard(numCards()-1));
+      return card;
+      
+   }
+   
+   
 }

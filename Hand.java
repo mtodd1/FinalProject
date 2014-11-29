@@ -4,7 +4,7 @@
 
 import java.util.ArrayList;
 
-public class Hand extends Deck
+public class Hand
 {
    private ArrayList<Card> hand;
     
@@ -32,11 +32,4 @@ public class Hand extends Deck
       
       
    }
-   
-   public void battle()
-   {
-   
-   }
-
-
 }
