@@ -1,12 +1,25 @@
-/**
-
+/* Mckenna Todd
+   CS 110
 */
+/**
+   The CardPile class simply simulates a pile of cards. It includes methods for adding, setting, getting, and
+   removing cards, as well as dividing the pile in half and "flipping" the top card off of the pile. The card at
+   index 0 is considered to be the bottom card.
+*/
+
+//Imports the needed packages.
 import java.util.ArrayList;
 import java.util.List;
+
+//Creates the CardPile class.
 public class CardPile
 {
+   //Initializes an empty ArrayList of Card objects to hold all of the cards.
    private ArrayList<Card> cards;
    
+   /**
+      This constructor simply creates an empty CardPile.
+   */
    public CardPile()
    {
       cards = new ArrayList<Card>();  
@@ -39,7 +52,6 @@ public class CardPile
       return cards.size();
    }
    
-   
    public void addCard(Card card)
    {
       cards.add(card);  
@@ -50,6 +62,13 @@ public class CardPile
       cards.add(index, card);
    }
    
+   public void addCard(int index, Card... card)
+   {
+      for(int i = 0; i < card.length; i++)
+      {
+         cards.add(index, card[i]);
+      }
+   }
    /**
       The setCard method accepts an integer for an index and a 
       Card object passed in as an argument, and then sets the Card
