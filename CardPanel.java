@@ -13,13 +13,15 @@ public class CardPanel extends JPanel
      public CardPanel()
      {
          back = new ImageIcon("back.jpg");
-         card = new JLabel(back); 
+         card = new JLabel(back);
+         add(card);
      }
      
-     public void getFront(Card card)
+     public void setFront(Card cardOther)
      {
+        
          StringBuilder suitString = new StringBuilder("");
-         switch(card.getSuit())
+         switch(cardOther.getSuit())
          {
             case Card.SPADES:
                suitString.append("s");
@@ -34,7 +36,7 @@ public class CardPanel extends JPanel
                suitString.append("d");
                break;
          }
-         switch(card.getRank())
+         switch(cardOther.getRank())
          {
             case Card.ACE:
                suitString.insert(0, "ace");
@@ -77,11 +79,19 @@ public class CardPanel extends JPanel
                break;
          }           
          
-         front = new ImageIcon(suitString + ".jpg");
+         String imageString = suitString.toString() + ".jpg";
+         
+         front = new ImageIcon(imageString);
+         
+         card.setIcon(front);
+        
+         
      }
-      
+     
+     
      public void setBack()
      {
-         card.setIcon(back);   
+         card.setIcon(back);
+         
      }
 }

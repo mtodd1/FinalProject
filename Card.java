@@ -46,6 +46,12 @@ public class Card
       this.rank = rank;
    }
    
+   public Card(Card other)
+   {
+      this.suit = other.suit;
+      this.rank = other.rank;
+   } 
+   
    /**
       The setSuit method takes a string passed in as an argument, then sets the suit
       field based on that string. If the string is not a valid suit, simply sets it to spades.

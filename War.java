@@ -3,17 +3,24 @@
 import java.util.ArrayList;
 public class War
 {
-   private ArrayList<Card> cardsArray;
+   private ArrayList<Card> cardsArray1;
+   private ArrayList<Card> cardsArray2;
    private Deck deck;
    private CardPile hand1;
    private CardPile hand2;
    private int turns;
    private boolean victory;
-   private boolean p1Wins;
+   private boolean p1WinsWar;
+   private int playerWins;
+
+   private Card card1;
+   private Card card2;
    
    public War()
    {
       deck = new Deck();
+      cardsArray1 = new ArrayList<Card>();
+      cardsArray2 = new ArrayList<Card>();
       int mid = deck.numCards()/2;
       
       deck.shuffle();
@@ -26,84 +33,127 @@ public class War
    
    public void battle()
    {
+      
       if(hand1.numCards() != 0 || hand2.numCards() != 0)
       {
-         Card card1 = hand1.flipTop();
-   		Card card2 = hand2.flipTop();
+         card1 = hand1.flipTop();
+   		card2 = hand2.flipTop();
+         
+         cardsArray1.add(card1);
+         cardsArray2.add(card2);
    		if(card1.getRank() >	card2.getRank())
    		{
    			hand1.addCard(0, card1);
    			hand1.addCard(0, card2);
+            playerWins = 1;
+            
    		}
    		else if(card2.getRank()	> card1.getRank())
    		{
    			hand2.addCard(0, card1);
    			hand2.addCard(0, card2);
+            playerWins = 2;
+            
    		}
    		else
    		{
-   			cardsArray.add(card1);
-   			cardsArray.add(card2);
+            playerWins = 3;
    			war();
    		}
       }
-      getWinner();
+      //getWarWinner();
       turns++;
    }
    
    public void war()
    {
+      turns++;
       if(hand1.numCards() != 0 || hand2.numCards() != 0)
       {
          Card war1 = hand1.flipTop();
          Card war2 = hand2.flipTop();
-         cardsArray.add(war1);
-         cardsArray.add(war2);
+         cardsArray1.add(war1);
+         cardsArray2.add(war2);
          war1.setFaceUp(false);
          war2.setFaceUp(false);
          
          Card war3 = hand1.flipTop();
          Card war4 = hand2.flipTop();
-         cardsArray.add(war3);
-         cardsArray.add(war4);
+         cardsArray1.add(war3);
+         cardsArray2.add(war4);
          if(war3.getRank() > war4.getRank())
          {
-            for(int i = 0; i < cardsArray.size(); i++)
+            for(int i = 0; i < cardsArray1.size(); i++)
             {
-               hand1.addCard(cardsArray.get(i));
-               turns++;
-            }   
+               hand1.addCard(cardsArray1.get(i));
+            } 
+            for(int i = 0; i < cardsArray2.size(); i++)
+            {
+               hand1.addCard(cardsArray2.get(i));
+            }  
          }
          else if(war4.getRank() > war3.getRank())
          {
-            for(int i = 0; i < cardsArray.size(); i++)
+            for(int i = 0; i < cardsArray1.size(); i++)
             {
-               hand2.addCard(cardsArray.get(i));
-               turns++;
-            }  
+               hand2.addCard(cardsArray1.get(i));
+            } 
+            for(int i = 0; i < cardsArray2.size(); i++)
+            {
+               hand2.addCard(cardsArray2.get(i));
+            } 
          }
          else
          {
-            turns++;
+            
             war(); 
          }
       }
-      getWinner();
+      getWarWinner();
    }
    
-   public void getWinner()
+   public void getWarWinner()
    {
       if(hand1.numCards() == 0)
       {
          victory = true;
-         p1Wins = true;  
+         p1WinsWar = true; 
+          
       }
       else if(hand2.numCards() == 0)
       {
          victory = true;
+         
       }
    }
-  
+   
+   public int getBattleWinner()
+   {
+      return playerWins;
+   }
+   public void clearCards()
+   {
+      cardsArray1.clear();
+      cardsArray2.clear();
+   }
+   public ArrayList<Card> getSpoilsP1()
+   {
+      return cardsArray1;
+   }
+   public ArrayList<Card> getSpoilsP2()
+   {
+      return cardsArray2;
+   }
+   
+   public int getCardsP1()
+   {
+      return hand1.numCards();
+   }
+   
+   public int getCardsP2()
+   {
+      return hand2.numCards();
+   }
    public int getTurns()
    {
       return turns;
