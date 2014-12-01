@@ -1,7 +1,7 @@
 /**
 */
 import java.util.ArrayList;
-public class Game
+public class War
 {
    private ArrayList<Card> cardsArray;
    private Deck deck;
@@ -11,7 +11,7 @@ public class Game
    private boolean victory;
    private boolean p1Wins;
    
-   public Game()
+   public War()
    {
       deck = new Deck();
       int mid = deck.numCards()/2;
@@ -20,12 +20,13 @@ public class Game
       hand1 = deck.getHalf(0, mid);
       hand2 = deck.getHalf(mid, deck.numCards()-1);
       
+      turns = 0;
       victory = false; 
    }
    
    public void battle()
    {
-      while(hand1.numCards() != 0 || hand2.numCards() != 0)
+      if(hand1.numCards() != 0 || hand2.numCards() != 0)
       {
          Card card1 = hand1.flipTop();
    		Card card2 = hand2.flipTop();
@@ -52,7 +53,7 @@ public class Game
    
    public void war()
    {
-      while(hand1.numCards() != 0 || hand2.numCards() != 0)
+      if(hand1.numCards() != 0 || hand2.numCards() != 0)
       {
          Card war1 = hand1.flipTop();
          Card war2 = hand2.flipTop();
@@ -103,4 +104,9 @@ public class Game
       }
    }
   
+   public int getTurns()
+   {
+      return turns;
+   }
+   
 }
