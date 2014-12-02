@@ -32,7 +32,7 @@ public class Card
    //Creates variables to hold the suit and rank of a card, and if the card is facing up.
    private int suit;
    private int rank;
-   private boolean faceUp;
+   private boolean faceUp = true;
    
    /**
       This constructor sets the card's suit and rank to the integer values

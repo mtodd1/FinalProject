@@ -79,12 +79,18 @@ public class CardPanel extends JPanel
                break;
          }           
          
-         String imageString = suitString.toString() + ".jpg";
+         if(cardOther.getFaceUp())
+         {
+            String imageString = suitString.toString() + ".jpg";
          
-         front = new ImageIcon(imageString);
+            front = new ImageIcon(imageString);
          
-         card.setIcon(front);
-        
+            card.setIcon(front);
+         }
+         else
+         {
+            setBack();
+         }
          
      }
      
