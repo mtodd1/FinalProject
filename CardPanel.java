@@ -1,26 +1,48 @@
+/*Mckenna Todd
+  CS 110
+*/
 /**
+   The CardPanel class simulates a card icon for a GUI. It includes methods for setting the front and the back of a
+   card.
 */
 
+//Imports the needed packages.
 import javax.swing.*;
 import java.awt.*;
 
+//Creates the CardPanel class, which extends the JPanel class.
 public class CardPanel extends JPanel
 {
+     /*Creates variables for the fronts and backs of the card, as well as
+       a label to hold the card image itself.
+     */
      ImageIcon back;
      ImageIcon front;
      JLabel card;
      
+     /**
+        This constructor sets the default image of the card to the back and
+        adds the Label to the Panel the CardPanel is added to.
+     */
      public CardPanel()
-     {
-         back = new ImageIcon("back.jpg");
+     { 
+         back = new ImageIcon("cardPics\\back.jpg");
          card = new JLabel(back);
          add(card);
      }
      
+     /**
+        The setFront method accepts a Card object passed in as an argument. It then
+        gets its rank and suit and puts them into a StringBuilder, which is then used to find
+        the correct image to set the front of the card to. If the Card object is supposed to
+        be facing down, sets the image to a card back instead.
+        @param cardOther The Card object that needs an image.
+     */
      public void setFront(Card cardOther)
      {
         
          StringBuilder suitString = new StringBuilder("");
+         //Creates a switch statement to put the card's suit into the StringBuilder.
          switch(cardOther.getSuit())
          {
             case Card.SPADES:
@@ -36,6 +58,8 @@ public class CardPanel extends JPanel
                suitString.append("d");
                break;
          }
+         
+         //Creates a switch statement to put the card's rank into a StringBuilder.
          switch(cardOther.getRank())
          {
             case Card.ACE:
@@ -79,14 +103,15 @@ public class CardPanel extends JPanel
                break;
          }           
          
+         //If the card is facing up, sets its image using the created StringBuilder.
          if(cardOther.getFaceUp())
          {
+            suitString.insert(0, "cardPics\\");
             String imageString = suitString.toString() + ".jpg";
-         
             front = new ImageIcon(imageString);
-         
             card.setIcon(front);
          }
+         //Otherwise, sets the image to a card back.
          else
          {
             setBack();
@@ -94,10 +119,31 @@ public class CardPanel extends JPanel
          
      }
      
-     
+     /**
+        The setBack method sets the image of the CardPanel to a card back.
+     */
      public void setBack()
      {
          card.setIcon(back);
-         
+     }
+     
+     /**
+        The getFront method returns the ImageIcon for the current front of the 
+        CardPanel.
+        @return The ImageIcon for the current front of the CardPanel.
+     */
+     public ImageIcon getFront()
+     {
+        return front;
+     }
+     
+     /**
+        The getBack method returns the ImageIcon for the current back of the 
+        CardPanel.
+        @return The ImageIcon for the current back of the CardPanel.
+     */
+     public ImageIcon getBack()
+     {
+        return back;
      }
 }

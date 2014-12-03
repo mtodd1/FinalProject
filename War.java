@@ -1,72 +1,103 @@
+/*Mckenna Todd
+  CS 110
+*/
 /**
+   The War class simulates a game of war. It includes methods for simulating a "battle", with 2 cards, as 
+   well as a "war", with 4 more. It also includes methods to get the sizes of the hands, as well as the cards
+   to be added to them from the battles, finding a face-down card, and getting the winner of a battle or war.
 */
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 public class War
 {
+   private static final int NOT_FOUND = -1;
+   private static final int P1_WINS = 1;
+   private static final int P2_WINS = 2;
+   private static final int P3_WINS = 3;
+   
+   
    private ArrayList<Card> cardsArray1;
    private ArrayList<Card> cardsArray2;
-   private QueueReferenceBased cardQueue;
    private Deck deck;
    private CardPile hand1;
    private CardPile hand2;
-   private int turns;
-   private boolean victory;
-   private boolean p1WinsWar;
-   private int playerWins;
-   private static final int NOT_FOUND = -1;
+   
    private Card card1;
    private Card card2;
    
+   private int turns; 
+   
+   private int playerWins;
+ 
    public War()
    {
       deck = new Deck();
       cardsArray1 = new ArrayList<Card>();
       cardsArray2 = new ArrayList<Card>();
-      cardQueue = new QueueReferenceBased();
-      int mid = deck.numCards()/2;
+      int mid = (deck.numCards())/2;
       
       deck.shuffle();
       hand1 = deck.getHalf(0, mid);
       hand2 = deck.getHalf(mid, deck.numCards()-1);
       
+      
+      
+      
       turns = 0;
-      victory = false; 
    }
    
    public void battle()
    {
-      
-      if(hand1.numCards() != 0 || hand2.numCards() != 0)
+      try
       {
-         card1 = hand1.flipTop();
-   		card2 = hand2.flipTop();
-         
-         cardsArray1.add(card1);
-         cardsArray2.add(card2);
-         
-   		if(card1.getRank() >	card2.getRank())
-   		{
-   			hand1.addCard(0, card1);
-   			hand1.addCard(0, card2);
-            playerWins = 1;
+         if(hand1.numCards() != 0 || hand2.numCards() != 0)
+         {
+            card1 = hand1.flipTop();
+            card2 = hand2.flipTop();
             
-   		}
-   		else if(card2.getRank()	> card1.getRank())
-   		{
-   			hand2.addCard(0, card1);
-   			hand2.addCard(0, card2);
-            playerWins = 2;
+            cardsArray1.add(card1);
+            cardsArray2.add(card2);
             
-   		}
-   		else
-   		{
-            playerWins = 3;
-   			war();
-   		}
+            if(card1.getRank() > card2.getRank())
+            {
+               hand1.addCard(0, card1);
+               hand1.addCard(0, card2);
+               playerWins = 1;
+               
+            }
+            else if(card2.getRank() > card1.getRank())
+            {
+               hand2.addCard(0, card1);
+               hand2.addCard(0, card2);
+               playerWins = 2;
+               
+            }
+            else
+            {
+               playerWins = 3;
+               war();
+            }
+         }
+         
+         turns++;
       }
-      //getWarWinner();
-      turns++;
+      catch(IndexOutOfBoundsException e)
+      {
+         if(hand1.numCards()==0 || hand2.numCards()==0)
+         {
+            getWarWinner();
+         }
+         else
+         {
+            JOptionPane.showMessageDialog(null, "Index out of bounds.");
+         }
+      }
+      catch(Exception e)
+      {
+         JOptionPane.showMessageDialog(null, "Error with the program."); 
+      }
    }
    
    public void war()
@@ -115,33 +146,49 @@ public class War
    			}
    		}
       }
-      catch(IllegalArgumentException e)
+      catch(IndexOutOfBoundsException e)
       {
          if(hand1.numCards()==0 || hand2.numCards()==0)
          {
+            getWarWinner();
          }
+         else
+         {  
+            JOptionPane.showMessageDialog(null, "Index out of bounds.");
+         }
+      }
+      catch(Exception e)
+      {
+         JOptionPane.showMessageDialog(null, "Error with the program.");
       }
    }
    
-   public void getWarWinner()
+   public int getPlayerWins()
+   {
+      return playerWins;
+   }
+   public int getWarWinner()
    {
       if(hand1.numCards() == 0)
       {
-         victory = true;
-         p1WinsWar = true; 
+         
+         playerWins = 1;
+         return playerWins; 
           
       }
       else if(hand2.numCards() == 0)
       {
-         victory = true;
+         playerWins = 2;
+         return playerWins;
          
+      }
+      else
+      {
+         playerWins = 3;
+         return playerWins;
       }
    }
    
-   public int getBattleWinner()
-   {
-      return playerWins;
-   }
    public void clearCards()
    {
       cardsArray1.clear();

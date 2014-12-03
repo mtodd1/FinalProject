@@ -30,8 +30,9 @@ public class WarGUI extends JFrame
       setLayout(new BorderLayout(10, 10));
       game = new War();
       
-      createCardPanel();
+      
       createGamePanel();
+      createCardPanel();
       createTitlePanel();
       createPlayerLabels();
      
@@ -95,12 +96,12 @@ public class WarGUI extends JFrame
       labelHolder = new JPanel(new BorderLayout());
       
       gamePanel.add(labelHolder, BorderLayout.NORTH);
-      p1Label = new JLabel("Player 1");
+      p1Label = new JLabel("P1's cards: " + game.getCardsP1());
       p1Label.setHorizontalAlignment(SwingConstants.LEFT);
       p1Label.setFont(new Font("LUCIDA", Font.PLAIN, 18));
       labelHolder.add(p1Label, BorderLayout.WEST);
       
-      p2Label = new JLabel("Player 2");
+      p2Label = new JLabel("P2's cards: " + game.getCardsP2());
       
       p2Label.setFont(new Font("LUCIDA", Font.PLAIN, 18));
       p2Label.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -128,10 +129,15 @@ public class WarGUI extends JFrame
             
             p1Grid.add(cardFace1);
             p2Grid.add(cardFace2);
-            cardFace1.setFront(game.getSpoilsP1().get(0));
-            cardFace2.setFront(game.getSpoilsP2().get(0));
+            Card card1 = new Card(game.getSpoilsP1().get(0));
+            Card card2 = new Card(game.getSpoilsP2().get(0));
+            card1.setFaceUp(true);
+            card2.setFaceUp(true);
+            
+            cardFace1.setFront(card1);
+            cardFace2.setFront(card2);
            
-            switch(game.getBattleWinner())
+            switch(game.getPlayerWins())
             {
                case 1:
                   victory.setText("Player 1 wins!");
@@ -148,7 +154,7 @@ public class WarGUI extends JFrame
                   break;
                case 3:
                   victory.setText("Tie!");
-                  for(int i = game.findFaceUpCard(game.getSpoilsP1()); i < game.getSpoilsP1().size(); i++)
+                  /*for(int i = game.findFaceUpCard(game.getSpoilsP1()); i < game.getSpoilsP1().size(); i++)
                   {
                      CardPanel war = new CardPanel();
                      
@@ -161,7 +167,7 @@ public class WarGUI extends JFrame
                      
                      war.setFront(game.getSpoilsP2().get(i));
                      p1Grid.add(war);        
-                  }
+                  }*/
                   break; 
             }
             game.clearCards();

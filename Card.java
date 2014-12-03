@@ -4,7 +4,8 @@
 
 /**
    The Card class simulates a playing card, which can be assigned a rank and a suit; however, the card cannot be changed once
-   initialized. The class includes methods for getting either the suit or rank of a card, as well as for comparing two cards.
+   initialized. The class includes methods for getting the suit or rank of a card, or whether or not it is facing up,
+    as well as for comparing two cards.
 */
 
 //Creates the Card class.
@@ -46,6 +47,11 @@ public class Card
       this.rank = rank;
    }
    
+   /**
+      This copy constructor accepts another Card object passed in as an argument.
+      It then sets the fields of the Card to those of the Card passed in.
+      @param other The Card object to be copied.
+   */
    public Card(Card other)
    {
       this.suit = other.suit;
