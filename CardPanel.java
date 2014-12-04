@@ -2,8 +2,8 @@
   CS 110
 */
 /**
-   The CardPanel class simulates a card icon for a GUI. It includes methods for setting the front and the back of a
-   card.
+   The CardPanel class simulates a card icon for a GUI. It includes methods for setting and getting
+   the front and the back of a card.
 */
 
 //Imports the needed packages.
@@ -26,7 +26,7 @@ public class CardPanel extends JPanel
      */
      public CardPanel()
      { 
-         back = new ImageIcon("cardPics\\back.jpg");
+         back = new ImageIcon();
          card = new JLabel(back);
          add(card);
      }
@@ -124,6 +124,7 @@ public class CardPanel extends JPanel
      */
      public void setBack()
      {
+         back = new ImageIcon("cardPics\\back.jpg");
          card.setIcon(back);
      }
      
@@ -145,5 +146,15 @@ public class CardPanel extends JPanel
      public ImageIcon getBack()
      {
         return back;
+     }
+     
+     /**
+        The setImage method sets the icon of the CardPanel to the ImageIcon passed
+        in as an argument.
+        @param image The ImageIcon that the CarPanel will be set to.
+     */
+     public void setImage(ImageIcon image)
+     {
+         card.setIcon(image);
      }
 }

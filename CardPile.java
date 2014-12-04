@@ -159,7 +159,6 @@ public class CardPile
    public void removeAll()
    {
       cards.clear();
-   
    }
    
    /**
